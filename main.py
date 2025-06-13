@@ -13,6 +13,11 @@ if len(sys.argv) < 2:
     exit(1)
 user_prompt = sys.argv[1]
 
+verbose = False
+if "--verbose" in sys.argv[2:]:
+    verbose = True
+
+
 messages = [
     types.Content(role="user", parts=[types.Part(text=user_prompt)]),
 ]
@@ -23,6 +28,8 @@ print(response.text)
 
 prompt_tokens = response.usage_metadata.prompt_token_count
 response_tokens = response.usage_metadata.candidates_token_count
-print(f"Prompt tokens: {prompt_tokens}")
-print(f"Response tokens: {response_tokens}")
+if verbose:
+    print(f"User prompt: {user_prompt}")
+    print(f"Prompt tokens: {prompt_tokens}")
+    print(f"Response tokens: {response_tokens}")
       
